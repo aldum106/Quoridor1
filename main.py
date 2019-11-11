@@ -1,4 +1,21 @@
 import argparse
+from api import débuter_partie
+from api import jouer_coup
+
+
+def jouer_a_lejeu():
+    idul = input('Quel est ton nom de joueur? ')
+    etat = débuter_partie(idul)[1]
+    identif = débuter_partie(idul)[0]
+
+    while True:
+        afficher_damier_ascii(etat)
+        type_coup = input('Veux-tu jouer un mur ou un déplacement ? (entrez D, MH ou MV) ')
+        position_x = int(input('Choisis une case en x :'))
+        position_y = int(input('Choisis une case en y :'))
+        etat = jouer_coup(identif, type_coup, (position_x, position_y))
+        if 'gagnant' in etat.keys():
+            continue
 
 
 def analyser_commande():
@@ -11,19 +28,6 @@ def analyser_commande():
 
     args = parser.parse_args()
     return args
-
-dic = {
-    "joueurs": [
-        {"nom": "idul", "murs": 7, "pos": [5, 5]},
-        {"nom": "automate", "murs": 3, "pos": [8, 6]}
-    ],
-
-    
-    "murs": {
-        "horizontaux": [[4, 4], [2, 6], [3, 8], [5, 8], [7, 8]],
-        "verticaux": [[6, 2], [4, 4], [2, 6], [7, 5], [7, 7]]
-    }
-}
 
 
 def afficher_damier_ascii(dic):
@@ -59,9 +63,6 @@ def afficher_damier_ascii(dic):
         plateau[9-y-1][34 + x*4] = '|'
         plateau[9-y][x*4 -5] = '|'
 
-
     print(premiere_ligne + ''.join(''.join(i for i in ligne) for ligne in plateau) + '\n')
 
-
-#afficher_damier_ascii(dic)
-#print(analyser_commande())
+jouer_a_lejeu()
