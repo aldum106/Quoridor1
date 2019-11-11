@@ -64,4 +64,4 @@ def afficher_damier_ascii(dic):
 
 
 #afficher_damier_ascii(dic)
-print(analyser_commande())
+#print(analyser_commande())
