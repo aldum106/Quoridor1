@@ -14,8 +14,6 @@ def jouer_a_lejeu():
         position_x = int(input('Choisis une case en x :'))
         position_y = int(input('Choisis une case en y :'))
         etat = jouer_coup(identif, type_coup, (position_x, position_y))
-        if 'gagnant' in etat.keys():
-            continue
 
 
 def analyser_commande():

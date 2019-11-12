@@ -8,8 +8,7 @@ def lister_parties(idul):
         rep = rep.json()
         return rep['parties']
     else:
-        return f"Le GET sur {url_base + 'lister/'} a produit le code d'erreur {rep.status_code}."
-
+        raise RuntimeError(rep['Une erreur a été détectée'])
 
 def débuter_partie(idul):
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
@@ -18,7 +17,7 @@ def débuter_partie(idul):
         rep = rep.json()
         return (rep['id'], rep['état'])
     else:
-        return f"Le GET sur {url_base + 'débuter/'} a produit le code d'erreur {rep.status_code}."
+        raise RuntimeError(rep['Une erreur a été détectée'])
 
 
 def jouer_coup(id_partie, type_coup, position : tuple):
@@ -26,6 +25,9 @@ def jouer_coup(id_partie, type_coup, position : tuple):
     rep = requests.post(url_base + 'jouer/', data={'id': id_partie, 'type': type_coup, 'pos': position})
     if rep.status_code == 200:
         rep = rep.json()
+        print(rep)
         return rep['état']
+    elif 'gagnant' in rep['état'].keys:
+        raise StopIteration('Partie terminée')
     else:
-        return f"Le GET sur {url_base + 'jouer/'} a produit le code d'erreur {rep.status_code}."
+        raise RuntimeError(rep['message'])
