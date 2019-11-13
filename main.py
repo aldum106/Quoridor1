@@ -1,6 +1,5 @@
 import argparse
-from api import débuter_partie
-from api import jouer_coup
+from api import débuter_partie, jouer_coup
 
 
 def jouer_a_lejeu():
@@ -36,12 +35,8 @@ def afficher_damier_ascii(dic):
                 ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', '\n'
                 ]for ligne in range(9)]
 
-    pos_x_joueur = dic["joueurs"][0]['pos'][0]
-    pos_y_joueur = dic["joueurs"][0]['pos'][1]
-    pos_x_automate = dic["joueurs"][1]['pos'][0]
-    pos_y_automate = dic["joueurs"][1]['pos'][1]
-    plateau[8 - pos_y_joueur + 1][(pos_x_joueur - 1)*4] = '1'
-    plateau[8 - pos_y_automate + 1][(pos_x_automate - 1) * 4] = '2'
+    plateau[8 - dic["joueurs"][0]['pos'][1] + 1][(dic["joueurs"][0]['pos'][0] - 1)*4] = '1'
+    plateau[8 - dic["joueurs"][1]['pos'][1] + 1][(dic["joueurs"][1]['pos'][0] - 1) * 4] = '2'
 
     for i in range(9):
         plateau[i].insert(0, str(9-i) + ' | ')
