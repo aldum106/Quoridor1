@@ -9,18 +9,16 @@ def jouer_a_lejeu():
 
     while True:
         afficher_damier_ascii(etat)
-        type_coup = input('Voulez-vous jouer un mur ou un déplacement ? (entrez D, MH ou MV) ')
-        while True:
-            if type_coup == 'D':
-                break
-            if type_coup == 'MH':
-                break
-            if type_coup == 'MV':
-                break
-            type_coup = input("L'entrée est invalide, entrez D, MH ou MV : ")
-        position_x = int(input('Choisissez une case en x :'))
-        position_y = int(input('Choisissez une case en y :'))
-        etat = jouer_coup(identif, type_coup, (position_x, position_y))
+        try:
+            type_coup = input('Voulez-vous jouer un mur ou un déplacement ? (entrez D, MH ou MV) ')
+            position_x = int(input('Choisissez une case en x :'))
+            position_y = int(input('Choisissez une case en y :'))
+            etat = jouer_coup(identif, type_coup, (position_x, position_y))
+        except RuntimeError as err:
+            print(err)
+            print('Veuillez reprendre votre coup')
+        except StopIteration as name:
+            print(f'Partie terminée {name} a gagné !')
 
 
 def analyser_commande():
