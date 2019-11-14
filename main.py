@@ -11,14 +11,15 @@ def jouer_a_lejeu():
         afficher_damier_ascii(etat)
         try:
             type_coup = input('Voulez-vous jouer un mur ou un déplacement ? (entrez D, MH ou MV) ')
-            position_x = int(input('Choisissez une case en x :'))
-            position_y = int(input('Choisissez une case en y :'))
+            position_x = input('Choisissez une case en x :')
+            position_y = input('Choisissez une case en y :')
             etat = jouer_coup(identif, type_coup, (position_x, position_y))
         except RuntimeError as err:
             print(err)
             print('Veuillez reprendre votre coup')
         except StopIteration as name:
-            print(f'Partie terminée {name} a gagné !')
+            print(f'Partie terminée, {name} a gagné !')
+            break
 
 
 def analyser_commande():
