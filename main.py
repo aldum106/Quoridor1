@@ -1,8 +1,8 @@
 import argparse
-from api import débuter_partie, jouer_coup
+from api import débuter_partie, jouer_coup, lister_parties
 
 
-def jouer_a_lejeu():
+def jouer():
     idul = analyser_commande().idul
     etat = débuter_partie(idul)[1]
     identif = débuter_partie(idul)[0]
@@ -26,7 +26,7 @@ def analyser_commande():
     parser = argparse.ArgumentParser(description='Jeu Quoridor - Phase 1')
     parser.add_argument(metavar='idul', default='idul du joueur', dest ='idul',
                         help='IDUL du joueur.')
-    parser.add_argument('-l', '--lister', dest='accumulate', action='store_const',
+    parser.add_argument('-l', '--lister', dest='lister', action='store_const',
                         const=sum, default=False,
                         help='Lister les identifiants de vos 20 dernières parties.')
     args = parser.parse_args()
@@ -64,5 +64,8 @@ def afficher_damier_ascii(dic):
 
     print(premiere_ligne + ''.join(''.join(i for i in ligne) for ligne in plateau) + '\n')
 
-jouer_a_lejeu()
 
+if analyser_commande().lister:
+    print(lister_parties(analyser_commande().idul))
+else:
+    jouer()

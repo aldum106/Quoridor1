@@ -24,7 +24,7 @@ def débuter_partie(idul):
         return f"Le POST sur {url} a produit le code d'erreur {rep.status_code}."
 
 
-def jouer_coup(id_partie, type_coup, position : tuple):
+def jouer_coup(id_partie, type_coup, position: tuple):
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
     rep = requests.post(url_base + 'jouer/', data={'id': id_partie, 'type': type_coup, 'pos': position})
     if rep.status_code == 200:
