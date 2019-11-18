@@ -3,6 +3,9 @@ from api import débuter_partie, jouer_coup, lister_parties
 
 
 def jouer():
+    '''
+    Fonction permettant de jouer au jeu.
+    '''
     idul = analyser_commande().idul
     etat = débuter_partie(idul)[1]
     identif = débuter_partie(idul)[0]
@@ -23,8 +26,13 @@ def jouer():
 
 
 def analyser_commande():
+    '''
+    Fonction permettant de filtrer ce qu'on passedans la ligne de commande.
+
+    :return: arguments
+    '''
     parser = argparse.ArgumentParser(description='Jeu Quoridor - Phase 1')
-    parser.add_argument(metavar='idul', default='idul du joueur', dest ='idul',
+    parser.add_argument(metavar='idul', default='idul du joueur', dest='idul',
                         help='IDUL du joueur.')
     parser.add_argument('-l', '--lister', dest='lister', action='store_const',
                         const=sum, default=False,
@@ -34,21 +42,46 @@ def analyser_commande():
 
 
 def afficher_damier_ascii(dic):
-    premiere_ligne = 'Légende: 1=' + dic['joueurs'][0]['nom'] + ', 2=automate \n' + '   ' + '-'*35 + '\n'
-    plateau = [['.', ' ', ' ', ' ', '.', ' ', ' ', ' ', '.', ' ', ' ', ' ', '.', ' ', ' ', ' ', '.', ' ', ' ', ' ', '.',
-                ' ', ' ', ' ', '.', ' ', ' ', ' ', '.', ' ', ' ', ' ', '.', ' | ', '\n',
-                ' ', ' ', '|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', '\n'
+    '''
+    Fonction nous permettant de voir le plateau de jeu à chaque coup.
+
+    :param dic: état du jeu sous forme de dictionnaire
+    :affiche: état du jeu sous forme de damier, le plateau de jeu.
+    '''
+
+    premiere_ligne = 'Légende: 1=' + dic['joueurs'][0]['nom']\
+                     + ', 2=automate \n' + '   ' + '-'*35 + '\n'
+    plateau = [['.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' ', ' ', ' ',
+                '.', ' | ', '\n',
+                ' ', ' ', '|',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|',
+                ' ', '\n'
                 ]for ligne in range(9)]
 
-    plateau[8 - dic["joueurs"][0]['pos'][1] + 1][(dic["joueurs"][0]['pos'][0] - 1)*4] = '1'
-    plateau[8 - dic["joueurs"][1]['pos'][1] + 1][(dic["joueurs"][1]['pos'][0] - 1) * 4] = '2'
+    y_1 = dic["joueurs"][0]['pos'][1]
+    x_1 = dic["joueurs"][0]['pos'][0]
+    y_2 = dic["joueurs"][1]['pos'][1]
+    x_2 = dic["joueurs"][1]['pos'][0]
+
+    plateau[8 - y_1 + 1][(x_1 - 1)*4] = '1'
+    plateau[8 - y_2 + 1][(x_2 - 1)*4] = '2'
 
     for i in range(9):
         plateau[i].insert(0, str(9-i) + ' | ')
 
     plateau.append(['--|-----------------------------------\n'])
-    plateau.append([' ', ' ', '| ', '1', '   2', '   3', '   4', '   5', '   6', '   7', '   8', '   9'])
+    plateau.append([' ', ' ', '| ', '1', '   2', '   3', '   4'
+                       , '   5', '   6', '   7', '   8', '   9'])
     plateau[8] = plateau[8][:36]
 
     for pos in dic['murs']['horizontaux']:
