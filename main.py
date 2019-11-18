@@ -1,3 +1,9 @@
+'''
+Ce module pose differente fonction qui nous permette d'entrer un idul
+sur la ligne de commande et de jouer au jeu Quoridor directement.
+On peut soir y jouer ou bien demander l'historique des 20 dernières parties.
+'''
+
 import argparse
 from api import débuter_partie, jouer_coup, lister_parties
 
@@ -81,11 +87,11 @@ def afficher_damier_ascii(dic):
 
     plateau.append(['--|-----------------------------------\n'])
     plateau.append([' ', ' ', '| ', '1', '   2', '   3', '   4'
-                       , '   5', '   6', '   7', '   8', '   9'])
+                    , '   5', '   6', '   7', '   8', '   9'])
     plateau[8] = plateau[8][:36]
 
     for pos in dic['murs']['horizontaux']:
-        x, y = pos[0], pos[1]
+        x, y = pos
         for i in range(7):
             plateau[9-y][35 + x*4 + i] = '-'
 

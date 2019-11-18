@@ -1,3 +1,7 @@
+'''
+Ce fichier gère 3 fonctions permettant de communiquer avec le serveur.
+'''
+
 import requests
 
 
