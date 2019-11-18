@@ -35,8 +35,7 @@ def débuter_partie(idul):
         if 'message' in rep.keys():
             raise RuntimeError(rep['message'])
         return (rep['id'], rep['état'])
-    else:
-        return f"Le POST sur {u} a produit le code d'erreur {rep.status_code}."
+    return f"Le POST sur {u} a produit le code d'erreur {rep.status_code}."
 
 
 def jouer_coup(id_partie, type_coup, position: tuple):
@@ -60,4 +59,3 @@ def jouer_coup(id_partie, type_coup, position: tuple):
             raise RuntimeError(rep['message'])
         return rep['état']
     return f"Le POST sur {u} a produit le code d'erreur {rep.status_code}."
-
