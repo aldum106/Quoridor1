@@ -1,7 +1,7 @@
 '''
-Ce module pose differente fonction qui nous permette d'entrer un idul
+Ce module pose differentes fonctions qui nous permettent d'entrer un idul
 sur la ligne de commande et de jouer au jeu Quoridor directement.
-On peut soir y jouer ou bien demander l'historique des 20 dernières parties.
+On peut soit y jouer ou bien demander l'historique des 20 dernières parties.
 '''
 
 import argparse
